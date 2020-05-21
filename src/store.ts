@@ -3,6 +3,7 @@ import { combineReducers, compose, createStore } from 'redux';
 import appReducer from './reducers/AppReducer';
 import configReducer from './reducers/ConfigReducer';
 import roomReducer from './reducers/RoomReducer';
+import teamReducer from './reducers/TeamReducer';
 import { State } from './states/State';
 
 declare global {
@@ -17,6 +18,7 @@ const combinedReducers = combineReducers<State>({
   configState: configReducer,
   appState: appReducer,
   roomState: roomReducer,
+  teamState: teamReducer,
 });
 
 const store = createStore(combinedReducers, composeEnhancers());

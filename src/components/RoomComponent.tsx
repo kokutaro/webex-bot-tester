@@ -1,3 +1,5 @@
+import { IconButton } from '@material-ui/core';
+import { MoreHoriz } from '@material-ui/icons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +28,10 @@ const ListItem = styled.li`
   border-bottom: 1px solid #ddd;
 `;
 
+const SideIconButton = styled(IconButton)`
+  float: right;
+`;
+
 const RoomComponent: React.FC = () => {
   const roomState = useSelector<State, RoomState>((state) => state.roomState);
   const dispatch = useDispatch();
@@ -48,6 +54,9 @@ const RoomComponent: React.FC = () => {
       .filter((x) => x.title.toLowerCase().includes(filter.toLowerCase()))
       .map((room) => (
         <ListItem key={room.id}>
+          <SideIconButton size="small">
+            <MoreHoriz />
+          </SideIconButton>
           <Title>Room Name</Title>
           <div>{room.title}</div>
           <Title>Type</Title>

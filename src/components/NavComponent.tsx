@@ -38,6 +38,7 @@ const NavComponent: React.FC = () => {
     <Nav>
       <List>
         <ListItem onClick={() => onLinkClickHandler('rooms')}>Rooms</ListItem>
+        <ListItem onClick={() => onLinkClickHandler('messages')}>Messages</ListItem>
       </List>
     </Nav>
   );

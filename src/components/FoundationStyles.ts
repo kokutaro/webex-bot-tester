@@ -27,7 +27,7 @@ export const theme = {
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
-    font-family: "Segoe UI";
+    font-family: Roboto;
     font-size: 12pt;
     height: 100vh;
     width: 100vw;

@@ -5,7 +5,7 @@ import { AppState } from '../../src/states/AppState';
 
 describe('appReducer', () => {
   const appState: AppState = {
-    currentView: 'about',
+    currentView: 'rooms',
   };
 
   test('setCurrentView', () => {
@@ -14,7 +14,7 @@ describe('appReducer', () => {
     };
     const afterState = appReducer(beforeState, {
       type: 'APP_ACTIONS/SET_CURRENT_VIEW',
-      payload: 'about',
+      payload: 'rooms',
     } as any);
     expect(afterState).toEqual(appState);
   });
