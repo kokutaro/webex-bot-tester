@@ -1,5 +1,6 @@
 import { AppState } from './AppState';
 import { ConfigState } from './Config';
+import { RoomState } from './RoomState';
 
 export interface AsyncState {
   isLoading: boolean;
@@ -9,4 +10,5 @@ export interface AsyncState {
 export interface State {
   configState: ConfigState;
   appState: AppState;
+  roomState: RoomState;
 }

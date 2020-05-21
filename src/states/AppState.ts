@@ -1,4 +1,4 @@
-export type CurrentView = 'root' | 'about';
+export type CurrentView = 'root' | 'rooms';
 export interface AppState {
   currentView: CurrentView;
 }

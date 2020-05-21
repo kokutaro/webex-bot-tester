@@ -37,7 +37,7 @@ const NavComponent: React.FC = () => {
   return (
     <Nav>
       <List>
-        <ListItem onClick={() => onLinkClickHandler('about')}>About</ListItem>
+        <ListItem onClick={() => onLinkClickHandler('rooms')}>Rooms</ListItem>
       </List>
     </Nav>
   );

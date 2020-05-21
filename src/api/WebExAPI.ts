@@ -1,19 +1,16 @@
 import axios from 'axios';
-import * as dotenv from 'dotenv';
 
 import { AttachmentAction, Message, Person, Room, RoomMembership, Team } from '../types/WebEx';
 
-dotenv.config();
-
-const ax = axios.create({
-  baseURL: process.env.WEB_EX_API_URI,
+const api = axios.create({
+  baseURL: process.env.REACT_APP_WEB_EX_API_URI,
   headers: {
-    Authorization: 'Bearer ' + process.env.BOT_TOKEN,
+    Authorization: 'Bearer ' + process.env.REACT_APP_BOT_TOKEN,
   },
 });
 
 export const deleteMessage = async (messageId: string): Promise<string> => {
-  await ax.delete(`/messages/${messageId}`);
+  await api.delete(`/messages/${messageId}`);
   return messageId;
 };
 
@@ -21,36 +18,36 @@ export const getRooms = async (teamId?: string): Promise<Room[]> => {
   let items: Room[];
 
   if (!teamId) {
-    const res = await ax.get<{ items: Room[] }>('/rooms');
+    const res = await api.get<{ items: Room[] }>('/rooms');
     items = res.data.items;
     return items;
   }
-  const res = await ax.get<{ items: Room[] }>(`/rooms?teamId=${teamId}`);
+  const res = await api.get<{ items: Room[] }>(`/rooms?teamId=${teamId}`);
   return res.data.items;
 };
 
 export const getTeams = async (): Promise<Team[]> => {
-  const res = await ax.get<{ items: Team[] }>('teams');
+  const res = await api.get<{ items: Team[] }>('/teams');
   return res.data.items;
 };
 
 export const getMemberships = async (): Promise<RoomMembership[]> => {
-  const res = await ax.get<{ items: RoomMembership[] }>('memberships');
+  const res = await api.get<{ items: RoomMembership[] }>('/memberships');
   return res.data.items;
 };
 
 export const getPersonDetails = async (personId: string): Promise<Person> => {
-  const res = await ax.get<Person>(`/people/${personId}`);
+  const res = await api.get<Person>(`/people/${personId}`);
   return res.data;
 };
 
 export const getAttachmentActions = async (id: string): Promise<AttachmentAction> => {
-  const res = await ax.get<AttachmentAction>(`/attachment/actions/${id}`);
+  const res = await api.get<AttachmentAction>(`/attachment/actions/${id}`);
   return res.data;
 };
 
 export const getRoomDetails = async (roomId: string): Promise<Room> => {
-  const res = await ax.get<Room>(`/rooms/${roomId}`);
+  const res = await api.get<Room>(`/rooms/${roomId}`);
   return res.data;
 };
 
@@ -58,12 +55,12 @@ export const createMembership = async (
   roomId: string,
   personId: string,
 ): Promise<RoomMembership> => {
-  const res = await ax.post<RoomMembership>('memberships', { roomId, personId });
+  const res = await api.post<RoomMembership>('/memberships', { roomId, personId });
   return res.data;
 };
 
 export const getMessages = async (roomId: string): Promise<Message[]> => {
-  const res = await ax.get<{ items: Message[] }>('/messages', { params: { roomId } });
+  const res = await api.get<{ items: Message[] }>('/messages', { params: { roomId } });
   return res.data.items;
 };
 
@@ -83,12 +80,12 @@ export const postMessage = async (
     }
     const availRooms = await getRooms(mfc.id);
     targetSpace = availRooms.find((room) => room.title === spaceName);
-    await ax.post<RoomMembership>('memberships', {
+    await api.post<RoomMembership>('/memberships', {
       roomId: targetSpace?.id,
       personId: process.env.ID_MFC_BOT,
     });
   }
-  const res = await ax.post<Message>('messages', {
+  const res = await api.post<Message>('/messages', {
     roomId: targetSpace?.id,
     markdown: message,
     attachments,
@@ -97,7 +94,7 @@ export const postMessage = async (
 };
 
 export const getMessageDetails = async (messageId: string): Promise<Message> => {
-  const res = await ax.get<Message>(`messages/${messageId}`);
+  const res = await api.get<Message>(`/messages/${messageId}`);
   return res.data;
 };
 
@@ -106,7 +103,7 @@ export const postMessageToRoomId = async (
   message: string,
   attachments?: { contentType: string; content: unknown }[],
 ): Promise<Message> => {
-  const res = await ax.post<Message>('messages', {
+  const res = await api.post<Message>('/messages', {
     roomId,
     markdown: message,
     attachments,
@@ -119,7 +116,7 @@ export const postMessageToPersonId = async (
   message: string,
   attachments?: unknown,
 ): Promise<Message> => {
-  const res = await ax.post<Message>('messages', {
+  const res = await api.post<Message>('/messages', {
     toPersonId,
     markdown: message,
     attachments,

@@ -1,6 +1,8 @@
+require('dotenv').config();
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 /**@type {import ('webpack').Configuration} */
 module.exports = {
@@ -44,5 +46,9 @@ module.exports = {
       filename: 'index.html',
       template: './index.html',
     }),
+    new webpack.EnvironmentPlugin(['REACT_APP_WEB_EX_API_URI', 'REACT_APP_BOT_TOKEN']),
   ],
+  node: {
+    fs: 'empty',
+  },
 };

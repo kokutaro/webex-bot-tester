@@ -31,7 +31,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 12pt;
     height: 100vh;
     width: 100vw;
-    color:${theme.FOREGROUND}
+    color:${theme.FOREGROUND};
+    line-height: unset;
   }
   button {
     border-style: none;
@@ -50,7 +51,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
   input[type=text] {
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px solid #ddd;
     padding: .5em;
   }
