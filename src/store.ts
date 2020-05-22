@@ -2,6 +2,7 @@ import { combineReducers, compose, createStore } from 'redux';
 
 import appReducer from './reducers/AppReducer';
 import configReducer from './reducers/ConfigReducer';
+import messageReducer from './reducers/MessageReducer';
 import roomReducer from './reducers/RoomReducer';
 import teamReducer from './reducers/TeamReducer';
 import { State } from './states/State';
@@ -19,6 +20,7 @@ const combinedReducers = combineReducers<State>({
   appState: appReducer,
   roomState: roomReducer,
   teamState: teamReducer,
+  messageState: messageReducer,
 });
 
 const store = createStore(combinedReducers, composeEnhancers());

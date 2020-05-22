@@ -60,7 +60,12 @@ export const createMembership = async (
 };
 
 export const getMessages = async (roomId: string): Promise<Message[]> => {
-  const res = await api.get<{ items: Message[] }>('/messages', { params: { roomId } });
+  const res = await api.get<{ items: Message[] }>('/messages', {
+    params: {
+      roomId,
+      mentionedPeople: 'me',
+    },
+  });
   return res.data.items;
 };
 

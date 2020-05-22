@@ -29,8 +29,12 @@ const ListItem = styled.li`
 const NavComponent: React.FC = () => {
   const dispatch = useDispatch();
   const onLinkClickHandler = useCallback(
-    (view: CurrentView) => {
-      dispatch(setCurrentViewAction(view));
+    (currentView: CurrentView) => {
+      dispatch(
+        setCurrentViewAction({
+          currentView,
+        }),
+      );
     },
     [dispatch],
   );

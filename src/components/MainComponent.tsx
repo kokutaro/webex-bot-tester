@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { CurrentView } from '../states/AppState';
 import { State } from '../states/State';
 import { styled } from './FoundationStyles';
+import MessageComponent from './MessageComponent';
 import RoomComponent from './RoomComponent';
 
 const Main = styled.main`
@@ -20,6 +21,8 @@ const MainComponent: React.FC = () => {
         return <RoomComponent />;
       case 'root':
         return null;
+      case 'messages':
+        return <MessageComponent />;
       default:
         return null;
     }
