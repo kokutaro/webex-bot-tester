@@ -8,20 +8,23 @@ import { AppState } from '../states/AppState';
 import { MessageState } from '../states/MessageState';
 import { RoomState } from '../states/RoomState';
 import { State } from '../states/State';
-import { List, ListItem, Loading, Title } from './GrobalComponents';
+import { List, ListItem, Loading, Title } from './GlobalComponents';
 
 const MessageComponent: React.FC = () => {
   const messageState = useSelector<State, MessageState>((state) => state.messageState);
   const appState = useSelector<State, AppState>((state) => state.appState);
   const roomState = useSelector<State, RoomState>((state) => state.roomState);
+  const token = useSelector<State, string | undefined>(
+    (state) => state.configState.config.userToken,
+  );
 
   const dispatch = useDispatch();
   const [selectedRoom, setSelectedRoom] = useState(appState.selectedRoom);
   const [selectedRoomId, setSelectedRoomId] = useState(appState.selectedRoom?.id ?? '');
 
   useEffect(() => {
-    if (selectedRoom) {
-      getMessages(dispatch, selectedRoom.id);
+    if (selectedRoom && token) {
+      getMessages(dispatch, token, selectedRoom.id);
     }
   }, [dispatch, selectedRoom]);
 
@@ -40,7 +43,7 @@ const MessageComponent: React.FC = () => {
         <Title>Date</Title>
         <div>{ReactHtmlParser(message.created)}</div>
         <Title>Text</Title>
-        <div>{ReactHtmlParser(message.html)}</div>
+        <div>{message.html ? ReactHtmlParser(message.html) : message.text}</div>
       </ListItem>
     ));
   }, [messageState.isLoading]);

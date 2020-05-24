@@ -34,27 +34,6 @@ export const GlobalStyle = createGlobalStyle`
     color:${theme.FOREGROUND};
     line-height: unset;
   }
-  button {
-    border-style: none;
-    border-radius: 2px;
-    background-color: #ccc;
-    cursor: pointer;
-    padding: .5em;
-    margin: 2px;
-    transition-property: all;
-    transition-duration: .2s;
-    &:hover{
-      box-shadow: 1px 3px 3px rgba(200,200,200,4);
-    }
-    &:active {
-      background-color: #eee;
-    }
-  }
-  input[type=text] {
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    padding: .5em;
-  }
 `;
 
 export type Theme = typeof theme;

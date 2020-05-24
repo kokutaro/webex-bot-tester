@@ -1,3 +1,5 @@
+import '../core/CoreInterface';
+
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -43,6 +45,7 @@ const NavComponent: React.FC = () => {
       <List>
         <ListItem onClick={() => onLinkClickHandler('rooms')}>Rooms</ListItem>
         <ListItem onClick={() => onLinkClickHandler('messages')}>Messages</ListItem>
+        <ListItem onClick={() => onLinkClickHandler('settings')}>Settings</ListItem>
       </List>
     </Nav>
   );

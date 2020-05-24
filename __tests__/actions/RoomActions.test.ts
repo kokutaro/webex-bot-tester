@@ -20,7 +20,7 @@ describe('getRooms', () => {
       params: '',
       result: rooms,
     });
-    await getRooms(dispatch, '');
+    await getRooms(dispatch, 'token', '');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/rooms');
   });
@@ -33,7 +33,7 @@ describe('getRooms', () => {
       params: 'team',
       result: rooms,
     });
-    await getRooms(dispatch, 'team');
+    await getRooms(dispatch, 'token', 'team');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/rooms?teamId=team');
   });
@@ -46,7 +46,7 @@ describe('getRooms', () => {
       error: 'Error',
       params: '',
     });
-    await getRooms(dispatch, '');
+    await getRooms(dispatch, 'token', '');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/rooms');
   });

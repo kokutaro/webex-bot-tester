@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, TextField } from '@material-ui/core';
 import { FileCopy, MoreHoriz, OpenInNew } from '@material-ui/icons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,19 +10,26 @@ import { RoomState } from '../states/RoomState';
 import { State } from '../states/State';
 import { TeamState } from '../states/TeamState';
 import { Room } from '../types/WebEx';
-import { List, ListItem, Loading, Mono, SideIconButton, Title } from './GrobalComponents';
+import { List, ListItem, Loading, Mono, SideIconButton, Title } from './GlobalComponents';
 
 const RoomComponent: React.FC = () => {
   const roomState = useSelector<State, RoomState>((state) => state.roomState);
   const teamState = useSelector<State, TeamState>((state) => state.teamState);
+  const token = useSelector<State, string | undefined>(
+    (state) => state.configState.config.botToken,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getRooms(dispatch);
+    if (token) {
+      getRooms(dispatch, token);
+    }
   }, [dispatch]);
 
   useEffect(() => {
-    getTeams(dispatch);
+    if (token) {
+      getTeams(dispatch, token);
+    }
   }, [dispatch]);
 
   const [filter, setFilter] = useState<string>('');
@@ -49,9 +56,12 @@ const RoomComponent: React.FC = () => {
     }
   };
 
-  const onChangeFilter = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(e.currentTarget.value);
-  }, []);
+  const onChangeFilter = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter(e.currentTarget.value);
+    },
+    [filter],
+  );
 
   const roomsComponent = useMemo(() => {
     if (roomState.isLoading || teamState.isLoading) {
@@ -75,10 +85,9 @@ const RoomComponent: React.FC = () => {
         </ListItem>
       ));
   }, [roomState.isLoading, teamState.isLoading, filter]);
-
   return (
     <div>
-      <input type="text" placeholder={'Search Room'} onChange={onChangeFilter} value={filter} />
+      <TextField type="text" label={'Search Room'} onChange={onChangeFilter} value={filter} />
       <List>{roomsComponent}</List>
       <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
         <MenuItem onClick={handleOnShowMessagesMenuClick}>

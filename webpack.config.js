@@ -46,7 +46,7 @@ module.exports = {
       filename: 'index.html',
       template: './index.html',
     }),
-    new webpack.EnvironmentPlugin(['REACT_APP_WEB_EX_API_URI', 'REACT_APP_BOT_TOKEN']),
+    new webpack.EnvironmentPlugin(['WEB_EX_API_URI', 'BOT_TOKEN', 'MY_TOKEN', 'API_KEY']),
   ],
   node: {
     fs: 'empty',

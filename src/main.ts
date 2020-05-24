@@ -1,7 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 
-const createWindow = (): void => {
+import { refreshTokens } from './core/authService';
+
+const createWindow = async (): Promise<void> => {
   const win = new BrowserWindow({
     width: 1200,
     height: 600,
@@ -14,6 +16,8 @@ const createWindow = (): void => {
   });
 
   win.loadFile(path.join(__dirname, './index.html'));
+
+  await refreshTokens();
 
   if (process.argv.find((arg) => arg === '--debug')) {
     win.webContents.openDevTools();
@@ -28,7 +32,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }

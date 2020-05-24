@@ -20,12 +20,11 @@ describe('getMessages', () => {
       params: 'room_id',
       result: messages,
     });
-    await getMessages(dispatch, 'room_id');
+    await getMessages(dispatch, 'token', 'room_id');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/messages', {
       params: {
         roomId: 'room_id',
-        mentionedPeople: 'me',
       },
     });
   });
@@ -38,12 +37,11 @@ describe('getMessages', () => {
       error: 'Error',
       params: 'room_id',
     });
-    await getMessages(dispatch, 'room_id');
+    await getMessages(dispatch, 'token', 'room_id');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/messages', {
       params: {
         roomId: 'room_id',
-        mentionedPeople: 'me',
       },
     });
   });

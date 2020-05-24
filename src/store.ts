@@ -1,4 +1,7 @@
-import { combineReducers, compose, createStore } from 'redux';
+import './core/CoreInterface';
+
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import logger from 'redux-logger';
 
 import appReducer from './reducers/AppReducer';
 import configReducer from './reducers/ConfigReducer';
@@ -6,12 +9,6 @@ import messageReducer from './reducers/MessageReducer';
 import roomReducer from './reducers/RoomReducer';
 import teamReducer from './reducers/TeamReducer';
 import { State } from './states/State';
-
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -23,6 +20,6 @@ const combinedReducers = combineReducers<State>({
   messageState: messageReducer,
 });
 
-const store = createStore(combinedReducers, composeEnhancers());
+const store = createStore(combinedReducers, composeEnhancers(applyMiddleware(logger)));
 
 export default store;

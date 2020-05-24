@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import { AdaptiveCard } from './AdaptiveCard';
 
 export interface Room {
@@ -123,4 +127,33 @@ export interface Team {
   name: string;
   creatorId: string;
   created: string;
+}
+
+const webExScopes = [
+  'spark:memberships_read',
+  'spark:kms',
+  'spark:people_read',
+  'spark:rooms_read',
+  'spark:messages_write',
+  'spark:memberships_write',
+  'spark:teams_write',
+  'spark:team_memberships_write',
+  'spark:teams_read',
+  'spark:rooms_write',
+  'spark:messages_read',
+  'spark:team_memberships_read',
+];
+
+export const webExAuthPayload = {
+  scope: webExScopes.join(' '),
+  redirect_uri: 'file:///callback',
+  response_type: 'code',
+  client_id: process.env.WEB_EX_CLIENT_ID,
+};
+
+export interface WebExAuthResponse {
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  refresh_token_expires_in: number;
 }

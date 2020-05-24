@@ -19,7 +19,7 @@ describe('getTeams', () => {
     const action = getTeamsAction.done({
       result: teams,
     });
-    await getTeams(dispatch);
+    await getTeams(dispatch, 'token');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/teams');
   });
@@ -31,7 +31,7 @@ describe('getTeams', () => {
     const action = getTeamsAction.failed({
       error: 'Error',
     });
-    await getTeams(dispatch);
+    await getTeams(dispatch, 'token');
     expect(dispatch).toBeCalledWith(action);
     expect(mocked(axios.get)).toBeCalledWith('/teams');
   });
