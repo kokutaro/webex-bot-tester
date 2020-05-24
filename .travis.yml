@@ -4,8 +4,6 @@ cache:
     - node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-notifications:
-  slack: builder-0e62600:$SLACK_KEY
 jobs:
   include:
     - stage: Test
